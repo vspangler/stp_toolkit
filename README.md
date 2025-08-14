@@ -1,152 +1,66 @@
-# Stock Trend Prediction Toolkit (STP Toolkit)
+## Stock Trend Prediction Toolkit
 
-Welcome to the Stock Trend Prediction Toolkit repository! This project contains a comprehensive Python toolkit for stock analysis, trend prediction, and AI-driven forecasting.
+This repository provides a set of Python scripts for stock analysis, trend prediction, and AI-driven forecasting. The tools leverage machine learning and deep learning to generate buy/sell signals and 30-day forecasts for any stock symbol.
 
-## 📚 Getting Started - Essential Reading Order
+### Scripts Overview
 
-To properly understand and use this toolkit, please read the documentation in the following order:
+#### `ai_estimate.py`
+Performs AI-driven stock trend prediction and 30-day price forecasting using Random Forest algorithms.
 
-### 1. **Current Production Version**
-This repository currently offers:
+- **Features:**
+  - Fetches historical stock data (via yfinance)
+  - Engineers features (returns, moving averages)
+  - Trains a Random Forest Classifier to predict next-day trend (up/down)
+  - Provides buy/sell suggestions based on trend
+  - Forecasts 30 days of closing prices with suggested buy/sell prices
+- **Usage:**
+  - Run directly: `python ai_estimate.py`
+  - Enter a stock symbol when prompted
+  - View AI-driven buy/sell suggestions and a 30-day price forecast
 
-- **`stp_toolkit_v0.1/`** - **Current Production Version** (Recommended for all users)
-  - Stable, tested implementation
-  - Complete functionality for stock analysis and prediction
-  - Production-ready with comprehensive documentation
-  - Start with: `stp_toolkit_v0.1/README.md`
+#### `stock_estimate.py`
+Comprehensive stock analysis and forecasting tool with technical indicators and AI (LSTM) predictions.
 
-### 2. **Future Development**
-- **`stp_toolkit_v0.1.5/`** - **Development Version** (In Testing - Not Ready for Production)
-  - ⚠️ **Currently under development and testing**
-  - Will feature enhanced modular architecture and configuration management
-  - Will include improved error handling and expanded documentation
-  - **Do not use for production - testing phase only**
+- **Features:**
+  - Calculates moving averages, support/resistance, volume at extremes
+  - Computes technical indicators: MACD, Stochastic Oscillator, Bollinger Bands, RSI, EMA Crossovers, Candlestick Patterns, Volume Spikes
+  - Provides recommended buy/sell values for various periods
+  - Forecasts best buy/sell values for the next 30 days (linear regression)
+  - AI/Deep Learning (LSTM) prediction for next 30 days with daily forecast table, volatility, confidence intervals, anomaly detection, and buy/sell/hold signals
+- **Usage:**
+  - Run directly: `python stock_estimate.py`
+  - Enter a stock symbol when prompted
+  - View detailed technical and AI/Deep Learning analysis in the terminal
 
-### 3. **Essential Documents** (Read in Order)
+#### `main.py`
+Acts as the central orchestrator, combining the core machine learning workflow from `ai_estimate.py` with the ability to integrate advanced analytics from `stock_estimate.py`.
 
-#### For Version 0.1 (Current Production):
-1. **[stp_toolkit_v0.1/README.md](stp_toolkit_v0.1/README.md)** - Primary documentation
-   - Complete feature overview and usage guide
-   - Module descriptions and functionality
-   - Usage examples and best practices
-   - **Read this first** for full understanding
+- **How it differs from the other scripts:**
+  - **Integration:** Imports and utilizes functions from both `ai_estimate.py` (feature engineering, ML model training, trend prediction) and `stock_estimate.py` (advanced analytics, technical indicators).
+  - **Workflow:** Automates the end-to-end process: prompts for a stock symbol, fetches and processes data, trains models, and generates a comprehensive 30-day forecast table.
+  - **Output:** Presents a clear, tabular summary of predicted prices, trend direction, and buy/sell/hold signals for each of the next 30 trading days.
+  - **Customization:** Designed for easy extension—can be modified to include more advanced analytics or to call additional functions from the other scripts.
+  - **Comparison:**
+    - `ai_estimate.py` is focused on a single-script workflow for AI-based trend and price prediction, with direct user interaction and output.
+    - `stock_estimate.py` is a comprehensive technical and deep learning analysis tool, providing detailed technical indicators and LSTM-based forecasts.
+    - `main.py` brings these approaches together, providing a streamlined, user-friendly interface for rapid forecasting and signal generation, and can serve as a template for further integration or automation.
+- **Usage:**
+  - Run directly: `python main.py`
+  - Enter a stock symbol when prompted
+  - View a 30-day forecast table with buy/sell signals
 
-2. **[stp_toolkit_v0.1/INSTALLATION.md](stp_toolkit_v0.1/INSTALLATION.md)** - Setup Guide
-   - Step-by-step installation instructions
-   - Prerequisites and dependencies
-   - Troubleshooting common issues
-   - **Read before installing**
+### Requirements
+- Python 3.8+
+- Install dependencies:
+  ```sh
+  pip install yfinance pandas numpy scikit-learn tensorflow
+  ```
 
-3. **[stp_toolkit_v0.1/DISCLAIMER.md](stp_toolkit_v0.1/DISCLAIMER.md)** - Legal & Risk Information
-   - Important legal disclaimers
-   - Risk warnings and limitations
-   - Terms of use
-   - **Must read before using the toolkit**
+### WINDOWS LONG PATH SUPPORT (if needed):
+- Open Start menu, type "regedit" (Registry Editor)
+- Navigate to: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem
+- Set LongPathsEnabled to 1, then restart your computer
 
-### 4. **Reference Documents** (Read as needed)
-
-#### Version History & Changes:
-- **[stp_toolkit_v0.1/CHANGELOG.md](stp_toolkit_v0.1/CHANGELOG.md)** - Production version history
-  - Current version features and updates
-  - Bug fixes and improvements
-  - Known issues and limitations
-
-#### Future Development Plans:
-- **v0.1.5 Development Roadmap** (Currently in testing phase):
-  - Enhanced modular architecture for better code organization
-  - Centralized configuration management system
-  - Improved error handling and validation
-  - Expanded documentation and examples
-  - Better separation of concerns between AI and technical analysis modules
-  - Enhanced utility functions and type safety
-  - **Timeline**: Under active development and testing
-
-## 🚀 Quick Start Guide
-
-### For New Users:
-1. **Read**: `stp_toolkit_v0.1/README.md` (complete overview)
-2. **Read**: `stp_toolkit_v0.1/DISCLAIMER.md` (legal requirements)
-3. **Follow**: `stp_toolkit_v0.1/INSTALLATION.md` (setup)
-4. **Run**: Navigate to `stp_toolkit_v0.1/` and execute `python main.py`
-
-### For Experienced Users:
-1. **Quick scan**: `stp_toolkit_v0.1/README.md` (features & current capabilities)
-2. **Review**: `stp_toolkit_v0.1/CHANGELOG.md` (latest updates)
-3. **Install & Run**: Follow installation guide and start using
-
-## 📋 Document Summary
-
-| Document | Purpose | When to Read |
-|----------|---------|--------------|
-| **README.md** (v0.1) | Complete toolkit overview, features, usage | **First** - Essential understanding |
-| **INSTALLATION.md** | Setup and configuration guide | **Before installation** |
-| **DISCLAIMER.md** | Legal terms and risk warnings | **Before using** - Required reading |
-| **CHANGELOG.md** | Version history and current updates | When troubleshooting or reviewing features |
-
-## ⚠️ Important Notes
-
-### **Legal Requirements**
-- **You MUST read the DISCLAIMER.md** before using any version of this toolkit
-- This software is for educational and research purposes only
-- Not financial advice - consult professionals before making investment decisions
-
-### **Production Version**
-- **Use v0.1** for all production and real-world applications
-- v0.1 is stable, tested, and ready for actual stock analysis
-- Contains all core functionality needed for stock trend prediction
-
-### **Development Status**
-- **v0.1.5 is under active development** and not recommended for production use
-- Testing phase includes validation of new modular architecture
-- Will be released as production-ready once testing is complete
-
-### **Best Practices**
-- Read documentation completely before first use
-- Review CHANGELOG.md for current version capabilities
-- Always run after market close (4:00 PM ET) for optimal results
-- Test with small amounts before making significant investment decisions
-
-## � Future Plans (v0.1.5 Development)
-
-The upcoming v0.1.5 release will include:
-
-### **Enhanced Architecture**
-- **Modular Design**: Improved separation between AI prediction and technical analysis
-- **Configuration Management**: Centralized config.py for easy parameter tuning
-- **Utility Functions**: Common helper functions in dedicated utils.py module
-
-### **Improved Functionality**
-- **Better Error Handling**: More robust validation and error messages
-- **Enhanced Documentation**: Expanded examples and usage guides
-- **Type Safety**: Improved type hints and data validation
-- **Performance Optimizations**: Faster data processing and model training
-
-### **Development Timeline**
-- **Current Phase**: Internal testing and validation
-- **Next Phase**: Beta testing with select users
-- **Target Release**: After comprehensive testing completion
-- **Migration Path**: Will provide upgrade guide when ready
-
-## 🔄 Development vs Production
-
-### **Use v0.1 if you need:**
-- Stable, production-ready toolkit
-- Proven functionality for real trading decisions
-- Reliable performance and tested features
-
-### **v0.1.5 will offer (when ready):**
-- Enhanced code organization and maintainability
-- More flexible configuration options
-- Improved user experience and documentation
-- Better error handling and validation
-
-## 📞 Support & Contributing
-
-- **Issues**: Review documentation thoroughly before reporting issues
-- **Contributing**: See the Contributing section in `stp_toolkit_v0.1/README.md`
-- **Questions**: Ensure you've read all relevant documentation first
-- **Development**: v0.1.5 development contributions welcome after reviewing development roadmap
-
----
-
-**Remember**: Always start with `stp_toolkit_v0.1/README.md` for the most comprehensive and production-ready information!
+### Notes
+- For best results, ensure all required libraries are installed and up to date.
+- For advanced predictions, consider experimenting with ensemble models, feature engineering, or backtesting.
